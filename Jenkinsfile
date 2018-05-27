@@ -1,5 +1,5 @@
 #!groovy
-  node('JenkinsSlave-01') {
+  node {
   
     try{
     notifyStarted()
@@ -10,7 +10,6 @@
     }
 
     stage('Build image') {
-       sh "docker build -t nginximage ."
     }
 
     stage('Test image') {
@@ -18,12 +17,7 @@
        //sh "docker stop nginximage"
        }
     stage('Docker Push') {
-          withCredentials([usernamePassword(credentialsId: 'Dockerhub', passwordVariable: 'DockerhubPassword', usernameVariable: 'DockerhubUser')]) 
-      {
-          sh "docker tag nginximage karpenkokhai/finaleproject"
-          sh "docker login -u ${env.DockerhubUser} -p ${env.DockerhubPassword}"
-          sh 'docker push karpenkokhai/finaleproject:latest'
-      }
+   
     }
     
     notifySuccessful()
