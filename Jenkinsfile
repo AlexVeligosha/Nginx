@@ -1,34 +1,10 @@
 #!groovy
   node {
-  
-    try{
     notifyStarted()
   
     stage('Clone repository') {
         /* Let's make sure we have the repository cloned to our workspace */
         checkout scm
-    }
-
-    stage('Build image') {
-    }
-
-    stage('Test image') {
-       //sh "docker start nginximage"
-       //sh "docker stop nginximage"
-       }
-    stage('Docker Push') {
-   
-    }
-    
-    notifySuccessful()
-    
-    } catch (e) {
-        currentBuild.result = "FAILED"
-        notifyFailed()
-        throw e
-    }   finally {
-        // Success or failure, always send notifications
-        notifyBuild(currentBuild.result)
     }
 }
 
