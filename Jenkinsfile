@@ -8,10 +8,6 @@ node(){
         checkout scm
     }
 
-    stage('Build image') {
-       sh "docker build -t nginximage ."
-    }
-
   /*  stage('Docker Push') {
           withCredentials([usernamePassword(credentialsId: 'Dockerhub', passwordVariable: 'DockerhubPassword', usernameVariable: 'DockerhubUser')]) 
       {
@@ -20,11 +16,6 @@ node(){
           sh "docker push karpenkokhai/finaleproject:latest"
       }
     }*/
-      stage('Run nginx server'){
-          sh "docker-machine env aws-sa" 
-          sh 'eval $(docker-machine env aws-sa)'
-          sh "docker run -p 80:80 nginximage"    
-      }
 }
 
 def notifyStarted() { 
